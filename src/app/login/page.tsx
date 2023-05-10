@@ -57,6 +57,7 @@ export default function Login() {
                 <FormLabel>Email</FormLabel>
                 <Input
                   type="email"
+                  placeholder="seuemail@email.com"
                   {...register("email", {
                     required: "This is required",
                     pattern: new RegExp(validations.EMAIL),
@@ -68,6 +69,7 @@ export default function Login() {
                 <FormLabel>Senha</FormLabel>
                 <Input
                   type="password"
+                  placeholder="********"
                   {...register("password", {
                     required: "This is required",
                   })}
@@ -75,14 +77,6 @@ export default function Login() {
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
               <Stack spacing={10}>
-                <Stack
-                  direction={{ base: "column", sm: "row" }}
-                  align={"start"}
-                  justify={"space-between"}
-                >
-                  <Checkbox>Lembre-me</Checkbox>
-                  <Link color={"blue.400"}>Esqueçeu a senha?</Link>
-                </Stack>
                 <Button
                   type="submit"
                   bg={"blue.400"}
