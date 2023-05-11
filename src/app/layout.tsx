@@ -1,4 +1,4 @@
-import { ChakraProvider } from "./UI/providers/chakara";
+import { ChakraProvider } from "./theme/providers/chakara";
 
 export const metadata = {
   title: "Project MVP - Coletivo culttural",
