@@ -18,8 +18,11 @@ import {
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginFormData, loginSchema } from "../utils/validations/shema/login";
-import { validations } from "../utils/validations/validation";
+import {
+  LoginFormData,
+  loginSchema,
+} from "../../utils/validations/shema/login";
+import { validations } from "../../utils/validations/validation";
 
 export default function Login() {
   const {
