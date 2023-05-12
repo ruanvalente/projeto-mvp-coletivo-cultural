@@ -6,7 +6,18 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const collaboratorServices = new CollaboratorService();
-  const collaborator = await collaboratorServices.listUsers();
-  return response.json({ data: collaborator });
+  switch (request.method) {
+    case "GET":
+      const collaboratorServices = new CollaboratorService();
+      const collaborator = await collaboratorServices.listUsers();
+      return response.json({ data: collaborator });
+    case "POST":
+      return response.json({ data: request.body });
+    default:
+      response.setHeader("Allow", ["GET", "POST"]);
+      response
+        .status(405)
+        .json({ data: `Method ${request.method} Not Allowed` });
+      break;
+  }
 }
