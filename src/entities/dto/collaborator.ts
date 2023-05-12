@@ -1,4 +1,4 @@
-export type User = {
+export interface Collaborator {
   email: string;
   password: string;
-};
+}
