@@ -1,18 +1,20 @@
 import { Collaborator } from "../entities/dto/collaborator";
 import { BaseRepository } from "../entities/implements/baseRepository";
-import { supabaseServiceProvider } from "../lib/supabase";
-
-const SUPABASE_URL = process.env.SUPABASE_URL ?? "";
-const SUPABASE_KEY = process.env.SUPABASE_KEY ?? "";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 export class CollaboratorRepository implements BaseRepository<Collaborator> {
+  private readonly supabase: SupabaseClient;
+
+  constructor(
+    private readonly supabaseUrl: string,
+    private readonly supabaseKey: string
+  ) {
+    this.supabase = createClient(this.supabaseUrl, this.supabaseKey);
+  }
+
   async list(tableName: string): Promise<Collaborator[]> {
     try {
-      const supabase = await supabaseServiceProvider(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-      const { data, error } = await supabase
+      const { data, error } = await this.supabase
         .from(tableName)
         .select("*")
         .order("email", { ascending: false });
