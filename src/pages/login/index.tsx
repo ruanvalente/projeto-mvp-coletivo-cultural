@@ -20,6 +20,9 @@ import {
   loginSchema,
 } from "../../utils/validations/shema/login";
 import { validations } from "../../utils/validations/validation";
+import { notifyUtils } from "@/utils/notify/notify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const {
@@ -37,15 +40,10 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
-      if (!response.ok) {
-        console.log(response);
-        throw new Error("Erro ao processar a requisição");
-      }
-
       const responseData = await response.json();
-      reset();
       console.log(responseData);
+      notifyUtils(response.status, "Colaborador já cadastrado.");
+      reset();
     } catch (error) {
       console.error(error);
     }
@@ -117,6 +115,7 @@ export default function Login() {
           </Stack>
         </Stack>
       </form>
+      <ToastContainer />
     </Flex>
   );
 }

@@ -17,9 +17,11 @@ export class CollaboratorService {
     collaboratorData: Collaborator
   ): Promise<{ collaborator?: Collaborator; error?: string }> {
     const { result, error } = await this.collaborator.create(
-      "collaborators",
+      "collaboratorss",
       collaboratorData
     );
+    console.log("ERROR", error);
+    console.log("RESULT", result);
 
     if (error) {
       return { error: error };
