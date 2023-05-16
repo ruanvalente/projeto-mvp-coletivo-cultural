@@ -11,6 +11,32 @@ export class CollaboratorRepository implements BaseRepository<Collaborator> {
   ) {
     this.supabase = createClient(this.supabaseUrl, this.supabaseKey);
   }
+  async create(
+    tableName: string,
+    collaboratorData: Collaborator
+  ): Promise<{ result?: Collaborator; error?: string }> {
+    try {
+      const { email, password } = collaboratorData;
+      if (!email || !password) {
+        throw new Error("Dados de colaborador inválidos");
+      }
+
+      const { data: insertResult, error: insertError } = await this.supabase
+        .from(tableName)
+        .insert({
+          email,
+          password,
+        });
+
+      if (insertError) {
+        return { error: insertError.message };
+      }
+
+      return { result: collaboratorData as unknown as Collaborator };
+    } catch (error) {
+      throw error;
+    }
+  }
 
   async list(tableName: string): Promise<Collaborator[]> {
     try {
@@ -28,7 +54,6 @@ export class CollaboratorRepository implements BaseRepository<Collaborator> {
       }
       return data as Collaborator[];
     } catch (error) {
-      console.error(error);
       throw new Error("Erro ao listar usuários.");
     }
   }

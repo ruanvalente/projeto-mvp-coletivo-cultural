@@ -1,3 +1,4 @@
+import { Collaborator } from "@/entities/dto/collaborator";
 import { CollaboratorService } from "@/services/collaboratorServices";
 
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -6,13 +7,21 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
+  const collaboratorServices = new CollaboratorService();
   switch (request.method) {
     case "GET":
-      const collaboratorServices = new CollaboratorService();
       const collaborator = await collaboratorServices.listUsers();
       return response.json({ data: collaborator });
     case "POST":
-      return response.json({ data: request.body });
+      const collaboratorSaveData = request.body as Collaborator;
+      const dataResult = await collaboratorServices.createCollaborator(
+        collaboratorSaveData
+      );
+      if (dataResult.error) {
+        return response.status(400).json({ error: dataResult.error });
+      }
+
+      return response.json({ data: dataResult });
     default:
       response.setHeader("Allow", ["GET", "POST"]);
       response

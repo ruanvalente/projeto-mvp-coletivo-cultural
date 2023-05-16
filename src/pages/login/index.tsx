@@ -30,9 +30,25 @@ export default function Login() {
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
-  function onSubmit(data: LoginFormData) {
-    console.log(errors);
-    console.log(data);
+  async function onSubmit(data: LoginFormData) {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        console.log(response);
+        throw new Error("Erro ao processar a requisição");
+      }
+
+      const responseData = await response.json();
+      reset();
+      console.log(responseData);
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <Flex
