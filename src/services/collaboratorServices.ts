@@ -12,4 +12,19 @@ export class CollaboratorService {
   async listUsers(): Promise<Collaborator[]> {
     return await this.collaborator.list("collaborators");
   }
+
+  async createCollaborator(
+    collaboratorData: Collaborator
+  ): Promise<{ collaborator?: Collaborator; error?: string }> {
+    const { result, error } = await this.collaborator.create(
+      "collaborators",
+      collaboratorData
+    );
+
+    if (error) {
+      return { error: error };
+    }
+
+    return { collaborator: result };
+  }
 }
