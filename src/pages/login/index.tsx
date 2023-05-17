@@ -12,19 +12,18 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from "@chakra-ui/react";
-
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  LoginFormData,
-  loginSchema,
-} from "../../utils/validations/shema/login";
-import { validations } from "../../utils/validations/validation";
-import { notifyUtils } from "@/utils/notify/notify";
 import { ToastContainer } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginFormData, loginSchema } from "@/utils/validations/shema/login";
+import { validations } from "@/utils/validations/validation";
+import { notifyUtils } from "@/utils/notify/notify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -41,8 +40,11 @@ export default function Login() {
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
-      console.log(responseData);
-      notifyUtils(response.status, "Colaborador já cadastrado.");
+      if (response.ok) {
+        router.push("/");
+        return;
+      }
+      notifyUtils(response.status, responseData.error);
       reset();
     } catch (error) {
       console.error(error);
