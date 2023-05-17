@@ -13,10 +13,12 @@ export default async function handler(
       const collaborator = await collaboratorServices.listUsers();
       return response.json({ data: collaborator });
     case "POST":
-      const collaboratorSaveData = request.body as Collaborator;
-      const dataResult = await collaboratorServices.createCollaborator(
-        collaboratorSaveData
+      const collaboratorData = request.body as Collaborator;
+      const dataResult = await collaboratorServices.authCollaborator(
+        collaboratorData.email,
+        collaboratorData.password
       );
+
       if (dataResult.error) {
         return response.status(400).json({ error: dataResult.error });
       }

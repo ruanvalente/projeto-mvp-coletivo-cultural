@@ -1,7 +1,6 @@
 import { Collaborator } from "../entities/dto/collaborator";
 import { BaseRepository } from "../entities/implements/baseRepository";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-
 export class CollaboratorRepository implements BaseRepository<Collaborator> {
   private readonly supabase: SupabaseClient;
 

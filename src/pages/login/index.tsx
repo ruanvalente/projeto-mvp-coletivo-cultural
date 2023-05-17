@@ -12,16 +12,18 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from "@chakra-ui/react";
-
+import { ToastContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  LoginFormData,
-  loginSchema,
-} from "../../utils/validations/shema/login";
-import { validations } from "../../utils/validations/validation";
+import { LoginFormData, loginSchema } from "@/utils/validations/shema/login";
+import { validations } from "@/utils/validations/validation";
+import { notifyUtils } from "@/utils/notify/notify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -37,15 +39,13 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
-      if (!response.ok) {
-        console.log(response);
-        throw new Error("Erro ao processar a requisição");
-      }
-
       const responseData = await response.json();
+      if (response.ok) {
+        router.push("/");
+        return;
+      }
+      notifyUtils(response.status, responseData.error);
       reset();
-      console.log(responseData);
     } catch (error) {
       console.error(error);
     }
@@ -117,6 +117,7 @@ export default function Login() {
           </Stack>
         </Stack>
       </form>
+      <ToastContainer />
     </Flex>
   );
 }
