@@ -22,7 +22,7 @@ import { notifyUtils } from "@/utils/notify/notify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Login() {
+export default function LoginPage() {
   const router = useRouter();
   const {
     register,
