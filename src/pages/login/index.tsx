@@ -11,6 +11,7 @@ import {
   Text,
   useColorModeValue,
   FormErrorMessage,
+  Spinner,
 } from "@chakra-ui/react";
 import { ToastContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -21,9 +22,11 @@ import { validations } from "@/utils/validations/validation";
 import { notifyUtils } from "@/utils/notify/notify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [spinnerLoading, setSpinnerLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,6 +36,7 @@ export default function LoginPage() {
     resolver: yupResolver(loginSchema),
   });
   async function onSubmit(data: LoginFormData) {
+    setSpinnerLoading((prev) => !prev);
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -42,11 +46,14 @@ export default function LoginPage() {
       const responseData = await response.json();
       if (response.ok) {
         router.push("/");
+        setSpinnerLoading((prev) => !prev);
         return;
       }
       notifyUtils(response.status, responseData.error);
       reset();
+      setSpinnerLoading((prev) => !prev);
     } catch (error) {
+      setSpinnerLoading((prev) => !prev);
       console.error(error);
     }
   }
@@ -101,7 +108,7 @@ export default function LoginPage() {
                     bg: "blue.500",
                   }}
                 >
-                  Login
+                  {spinnerLoading ? <Spinner /> : "Login"}
                 </Button>
               </Stack>
             </Stack>
