@@ -1,6 +1,5 @@
 "use client";
 
-import { List, ListItem } from "@chakra-ui/react";
 import {
   MdOutlineSpaceDashboard,
   MdOutlineShoppingBag,
@@ -12,6 +11,7 @@ import {
   MdOutlineChatBubbleOutline,
   MdOutlineNotificationsActive,
 } from "react-icons/md";
+import { List, ListItem } from "@chakra-ui/react";
 import { NavItem } from "./NavItem";
 
 export const items = [
@@ -19,7 +19,7 @@ export const items = [
     type: "link",
     label: "Dashboard",
     icon: MdOutlineSpaceDashboard,
-    path: "/dashboard",
+    path: "/",
   },
   {
     type: "link",
@@ -31,32 +31,30 @@ export const items = [
     type: "link",
     label: "Mail",
     icon: MdMailOutline,
-    path: "/",
+    path: "/email",
   },
   {
     type: "link",
     label: "Campaings",
     icon: MdOutlineFlag,
-    path: "/",
+    path: "/campaings",
   },
   {
     type: "link",
     label: "Calendar",
     icon: MdCalendarToday,
-    path: "/",
+    path: "/calendar",
   },
   {
     type: "link",
     label: "Contacts",
     icon: MdOutlineSupervisorAccount,
-    path: "/",
+    path: "/contacts",
   },
-
   {
     type: "header",
     label: "Account",
   },
-
   {
     type: "link",
     label: "Notifications",
@@ -75,7 +73,7 @@ export const items = [
     type: "link",
     label: "Settings",
     icon: MdOutlineSettingsInputComposite,
-    path: "/",
+    path: "/settings",
   },
 ];
 
