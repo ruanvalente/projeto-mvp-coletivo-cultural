@@ -16,8 +16,8 @@ type NavItemProps = {
   item: {
     type: string;
     label: string;
-    icon: IconType;
-    path: string;
+    icon?: IconType;
+    path?: string;
     notifications?: number;
     messages?: number;
   };
