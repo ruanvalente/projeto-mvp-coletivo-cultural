@@ -1,13 +1,20 @@
+import { ReactNode } from "react";
+import { useRouter } from "next/router";
+import { Flex, HStack, Box } from "@chakra-ui/react";
 import { Sidebar } from "@/components/Sidebar";
 import { useCollapse } from "@/context/providers/useCollapse";
-import { Flex, HStack, Box } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import LoginPage from "@/pages/login";
 
 type LayoutProps = {
   children: ReactNode;
 };
 export function Layout({ children }: LayoutProps) {
   const { collapse } = useCollapse();
+  const router = useRouter();
+
+  if (router.pathname === "/login") {
+    return <LoginPage />;
+  }
 
   return (
     <HStack w="full" h="100vh" bg="gray.100" padding={4}>

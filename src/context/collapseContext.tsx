@@ -14,7 +14,7 @@ export const CollapseContext = createContext<CollapseContextValue | undefined>(
 );
 
 export function CollapseContextProvider({ children }: CollpaseProviderProps) {
-  const [collapse, setCollapse] = useState<boolean>(false);
+  const [collapse, setCollapse] = useState<boolean>(true);
 
   return (
     <CollapseContext.Provider value={{ collapse, setCollapse }}>
