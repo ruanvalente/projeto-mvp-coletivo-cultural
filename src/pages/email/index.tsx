@@ -1,3 +1,3 @@
 export default function EmailPage() {
-  return <div>Email</div>;
+  return <div>Email Page</div>;
 }

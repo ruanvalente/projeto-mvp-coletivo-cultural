@@ -1,6 +1,5 @@
 "use client";
 
-import { List, ListItem } from "@chakra-ui/react";
 import {
   MdOutlineSpaceDashboard,
   MdOutlineShoppingBag,
@@ -12,14 +11,16 @@ import {
   MdOutlineChatBubbleOutline,
   MdOutlineNotificationsActive,
 } from "react-icons/md";
+import { List, ListItem } from "@chakra-ui/react";
 import { NavItem } from "./NavItem";
+import { useState } from "react";
 
 export const items = [
   {
     type: "link",
     label: "Dashboard",
     icon: MdOutlineSpaceDashboard,
-    path: "/dashboard",
+    path: "/",
   },
   {
     type: "link",
@@ -31,32 +32,30 @@ export const items = [
     type: "link",
     label: "Mail",
     icon: MdMailOutline,
-    path: "/",
+    path: "/email",
   },
   {
     type: "link",
     label: "Campaings",
     icon: MdOutlineFlag,
-    path: "/",
+    path: "/campaings",
   },
   {
     type: "link",
     label: "Calendar",
     icon: MdCalendarToday,
-    path: "/",
+    path: "/calendar",
   },
   {
     type: "link",
     label: "Contacts",
     icon: MdOutlineSupervisorAccount,
-    path: "/",
+    path: "/contacts",
   },
-
   {
     type: "header",
     label: "Account",
   },
-
   {
     type: "link",
     label: "Notifications",
@@ -75,16 +74,28 @@ export const items = [
     type: "link",
     label: "Settings",
     icon: MdOutlineSettingsInputComposite,
-    path: "/",
+    path: "/settings",
   },
 ];
 
 export function Navigation({ collapse = false }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  function handleItemClick(index: number) {
+    console.log(index);
+    setActiveIndex(index);
+  }
+
   return (
     <List w="full" my={8}>
       {items.map((item, index) => (
         <ListItem key={index}>
-          <NavItem item={item} isActive={index === 0} collapse={collapse} />
+          <NavItem
+            item={item}
+            isActive={index === activeIndex}
+            collapse={collapse}
+            handleItemClick={() => handleItemClick(index)}
+          />
         </ListItem>
       ))}
     </List>

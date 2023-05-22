@@ -23,12 +23,14 @@ type NavItemProps = {
   };
   isActive: boolean;
   collapse: boolean;
+  handleItemClick: () => void;
 };
-export const NavItem = ({
+export function NavItem({
   item,
   isActive = false,
   collapse = false,
-}: NavItemProps) => {
+  handleItemClick,
+}: NavItemProps) {
   const { label, path } = item;
 
   if (item.type === "link") {
@@ -46,12 +48,13 @@ export const NavItem = ({
           color={isActive ? "black" : "gray.400"}
           w="full"
           justifyContent={!collapse ? "center" : ""}
+          onClick={handleItemClick}
         >
           <ListIcon as={icon} fontSize={22} m="0" />
           {collapse && <Text>{label}</Text>}
         </LinkChakra>
         {collapse && (
-          <React.Fragment>
+          <>
             {notifications && (
               <Badge
                 borderRadius="full"
@@ -72,7 +75,7 @@ export const NavItem = ({
                 {messages}
               </Badge>
             )}
-          </React.Fragment>
+          </>
         )}
       </Box>
     );
@@ -91,4 +94,4 @@ export const NavItem = ({
       <Text display={collapse ? "flex" : "none"}>{label}</Text>
     </Heading>
   );
-};
+}
