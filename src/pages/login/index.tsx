@@ -23,9 +23,11 @@ import { notifyUtils } from "@/utils/notify/notify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { getCookie, setCookie } from "@/utils/cookies";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [tokem, setToken] = useState<string | undefined>("");
   const [spinnerLoading, setSpinnerLoading] = useState(false);
   const {
     register,
@@ -44,6 +46,16 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
+      const informationSave = {
+        token: responseData.data.response.session.access_token,
+        user: {
+          aud: responseData.data.response.user.aud,
+          email: responseData.data.response.user.email,
+        },
+      };
+      setCookie("coletivo_cultural", JSON.stringify(informationSave), {
+        expires: 7,
+      });
       if (response.ok) {
         router.push("/");
         setSpinnerLoading((prev) => !prev);

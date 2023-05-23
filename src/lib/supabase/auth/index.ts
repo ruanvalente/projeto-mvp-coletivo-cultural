@@ -1,4 +1,4 @@
-import { BaseAuth } from "@/entities/implements/baseAuth";
+import { BaseAuth, BaseAuthResponse } from "@/entities/implements/baseAuth";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 export class SupabaseAuth implements BaseAuth {
@@ -11,26 +11,21 @@ export class SupabaseAuth implements BaseAuth {
     this.supabase = createClient(this.supabaseURL, this.supabaseKey);
   }
 
-  async auth(
-    email: string,
-    password: string
-  ): Promise<{ result?: boolean; error?: string }> {
+  async auth(email: string, password: string): Promise<BaseAuthResponse> {
     try {
       const { data, error } = await this.supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      console.log(data);
-
       if (error) {
-        return { error: error.message };
+        return { response: { error: error.message } };
       }
 
-      return { result: true };
+      return { response: { user: data.user, session: data.session } };
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      return { error: "Erro ao fazer login" };
+      return { response: { error: "Error ao fazer login" } };
     }
   }
 }
