@@ -1,9 +1,8 @@
 import { SupabaseAuth } from "@/lib/supabase/auth";
 import { Collaborator } from "../entities/dto/collaborator";
 import { CollaboratorRepository } from "../repository/collaboratorRepository";
-import { SUPABASE_URL, SUPABASE_KEY } from "@/lib/supabase/constants";
 import { BaseAuthResponse } from "@/entities/implements/baseAuth";
-import { error } from "console";
+import { SUPABASE_URL, SUPABASE_KEY } from "@/lib/supabase/constants";
 
 export class CollaboratorService {
   private collaboratorRepository: CollaboratorRepository;

@@ -1,6 +1,5 @@
 import { Collaborator } from "@/entities/dto/collaborator";
 import { CollaboratorService } from "@/services/collaboratorServices";
-import { setCookie } from "@/utils/cookies";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
