@@ -2,6 +2,8 @@ import { SupabaseAuth } from "@/lib/supabase/auth";
 import { Collaborator } from "../entities/dto/collaborator";
 import { CollaboratorRepository } from "../repository/collaboratorRepository";
 import { SUPABASE_URL, SUPABASE_KEY } from "@/lib/supabase/constants";
+import { BaseAuthResponse } from "@/entities/implements/baseAuth";
+import { error } from "console";
 
 export class CollaboratorService {
   private collaboratorRepository: CollaboratorRepository;
@@ -37,12 +39,12 @@ export class CollaboratorService {
   async authCollaborator(
     email: string,
     password: string
-  ): Promise<{ result?: boolean; error?: string }> {
-    const { result, error } = await this.supabaseAuth.auth(email, password);
+  ): Promise<BaseAuthResponse> {
+    const { response } = await this.supabaseAuth.auth(email, password);
 
-    if (error) {
-      return { error };
+    if (response?.error) {
+      return { response: { error: response.error } };
     }
-    return { result };
+    return { response: { user: response?.user, session: response?.session } };
   }
 }

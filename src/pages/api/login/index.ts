@@ -1,5 +1,6 @@
 import { Collaborator } from "@/entities/dto/collaborator";
 import { CollaboratorService } from "@/services/collaboratorServices";
+import { setCookie } from "@/utils/cookies";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -18,11 +19,9 @@ export default async function handler(
         collaboratorData.email,
         collaboratorData.password
       );
-
-      if (dataResult.error) {
-        return response.status(400).json({ error: dataResult.error });
+      if (dataResult.response?.error) {
+        return response.status(400).json({ error: dataResult.response.error });
       }
-
       return response.json({ data: dataResult });
     default:
       response.setHeader("Allow", ["GET", "POST"]);
