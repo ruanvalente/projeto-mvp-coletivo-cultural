@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps<any> = async (context) => {
   const hasEmptyCookies = isEmptyObject(userCookies);
 
   const userCookiesResponse = {
-    token: JSON.parse(userCookies.coletivo_cultural as string),
+    token: userCookies.coletivo_cultural,
   };
 
   if (hasEmptyCookies) {
