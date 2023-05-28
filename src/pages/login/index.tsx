@@ -45,7 +45,6 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
-      console.log(responseData.data.response.session.access_token);
       setCookie(
         "coletivo_cultural",
         JSON.stringify(responseData.data.response.session.access_token)
