@@ -43,9 +43,9 @@ export function NavItem({
           gap={1}
           display="flex"
           alignItems="center"
-          _hover={{ textDecoration: "none", color: "black" }}
+          _hover={{ textDecoration: "none", color: "gray.600" }}
           fontWeight="medium"
-          color={isActive ? "black" : "gray.400"}
+          color={isActive ? "gray.900" : "gray.400"}
           w="full"
           justifyContent={!collapse ? "center" : ""}
           onClick={handleItemClick}

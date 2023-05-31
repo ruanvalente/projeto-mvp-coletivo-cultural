@@ -17,14 +17,23 @@ export function Logo({ collapse = false }) {
     >
       <Box display="flex" alignItems="center" justifyContent={"center"} gap={2}>
         {collapse && (
-          <Text fontWeight="bold" textAlign={"center"} fontSize={16}>
+          <Text
+            fontWeight="bold"
+            textAlign={"center"}
+            fontSize={16}
+            color="gray.900"
+          >
             Coletivo Cultural LTDA
           </Text>
         )}
       </Box>
       <IconButton
+        bg="gray.800"
+        _hover={{
+          bg: "gray.600",
+        }}
         aria-label="Menu Colapse"
-        icon={<MdMenu />}
+        icon={<MdMenu color="white" />}
         onClick={() => setCollapse(!collapse)}
       />
     </Flex>
