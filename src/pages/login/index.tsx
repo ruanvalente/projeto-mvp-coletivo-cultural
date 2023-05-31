@@ -108,10 +108,10 @@ export default function LoginPage() {
               <Stack spacing={10}>
                 <Button
                   type="submit"
-                  bg={"blue.400"}
+                  bg={"gray.900"}
                   color={"white"}
                   _hover={{
-                    bg: "blue.500",
+                    bg: "gray.600",
                   }}
                 >
                   {spinnerLoading ? <Spinner /> : "Login"}
@@ -121,7 +121,7 @@ export default function LoginPage() {
           </Box>
           <Stack pt={6}>
             <Text align={"center"}>
-              Sistema <Link color={"blue.400"}>Coletivo Cultural</Link>
+              Sistema <Link color={"gray.600"}>Coletivo Cultural</Link>
             </Text>
             <Text align={"center"} as="span">
               {" "}

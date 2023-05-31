@@ -22,7 +22,11 @@ export function Logout({ collapse = false }) {
       justifyContent="center"
       gap={2}
       flexDirection={collapse ? "row" : "column-reverse"}
-      colorScheme="blue"
+      bg="gray.900"
+      color="white"
+      _hover={{
+        bg: "gray.600",
+      }}
       onClick={handlerLogout}
     >
       <MdLogout />
